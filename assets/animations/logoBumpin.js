@@ -1,8 +1,5 @@
-const { ipcRenderer } = require('electron')
 const path = require('path')
-
-const appPath = ipcRenderer.sendSync('request-app-path')
-const spritesFolder = path.resolve(appPath, "assets", "sprites")
+import { spritesFolder } from '../../src/Paths.js'
 
 const spritePath = path.resolve(spritesFolder, 'logoBumpin.png')
 
@@ -151,4 +148,4 @@ const animationFrames = [
     }
 ]
 
-export { spritePath as path , animationFrames as frames  }
+export { spritePath as path, animationFrames as frames }

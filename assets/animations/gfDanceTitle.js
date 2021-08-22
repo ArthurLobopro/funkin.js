@@ -1,8 +1,5 @@
-const { ipcRenderer } = require('electron')
 const path = require('path')
-
-const appPath = ipcRenderer.sendSync('request-app-path')
-const spritesFolder = path.resolve(appPath, "assets", "sprites")
+import { spritesFolder } from '../../src/Paths.js'
 
 const spritePath = path.resolve(spritesFolder, 'gfDanceTitle.png')
 
@@ -309,4 +306,4 @@ const frames = [
     }
 ]
 
-export { spritePath as path , frames  }
+export { spritePath as path, frames }
