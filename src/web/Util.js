@@ -8,4 +8,9 @@ const loadImage = async path => {
     })
 }
 
-export { loadImage }
+const loadAudio = path => {
+    const audio = new Audio(path)
+    return audio
+}
+
+export { loadImage, loadAudio }
