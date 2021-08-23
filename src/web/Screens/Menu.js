@@ -1,6 +1,6 @@
 const { shell } = require('electron')
 const { resolve } = require('path')
-import { loadImage } from '../Util.js'
+import { loadImage, range, delay } from '../Util.js'
 import { menuButtonsAnimationBasic, transition } from '../Animation.js'
 import { imagesFolder } from '../../Paths.js'
 import * as mainButtons from "../../../assets/animations/main_menu_buttons.js"
@@ -32,7 +32,7 @@ const screenComponents = {
                     dw, dh
                 )
             },
-            click(){
+            click() {
 
             }
         },
@@ -52,7 +52,7 @@ const screenComponents = {
                     dw, dh
                 )
             },
-            click(){
+            click() {
 
             }
         },
@@ -73,7 +73,7 @@ const screenComponents = {
                 )
             },
             click() {
-                shell.openExternal("https://ninja-muffin24.itch.io/funkin",{activate:true})
+                shell.openExternal("https://ninja-muffin24.itch.io/funkin")
             }
         }
     }
@@ -103,7 +103,7 @@ const functions = {
         buttons[newIndex][1].focus()
         moveBackground(newIndex)
     },
-    click(){
+    click() {
         const buttons = Object.entries(screenComponents.buttons)
         const focusedButton = buttons.find(([key, component]) => component.isFocused)
         focusedButton[1].click()
@@ -121,7 +121,11 @@ const buttonsFunctions = {
 const moveBackground = async index => {
     const newBackgroundY = 30 * index || 0
     const diference = Menu.backgroudY - newBackgroundY
-
+    const oldBackgroundY = Menu.backgroudY
+    range(0, diference,2).forEach( async (value, index) => {
+        await delay(25 * index)
+        Menu.backgroudY = oldBackgroundY - value
+    })
 }
 
 
