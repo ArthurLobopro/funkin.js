@@ -13,4 +13,12 @@ const loadAudio = path => {
     return audio
 }
 
-export { loadImage, loadAudio }
+function delay(time) {
+    return new Promise( res => {
+        setTimeout(() => {
+            res(true)
+        }, time);
+    })
+}
+
+export { loadImage, loadAudio, delay }
