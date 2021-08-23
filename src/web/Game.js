@@ -1,9 +1,15 @@
 import Screens from "./Screens.js"
 
-// const atualScreen = Screens.Start
-// atualScreen.init()
-// window.onkeydown = atualScreen.onkeydown
+const game = {
+    haveMusicPlaying: false
+}
 
-const atualScreen = Screens.Menu
+const atualScreen = Screens.Start
 atualScreen.init()
-window.onkeydown = atualScreen?.onkeydown || null
+
+
+// const atualScreen = Screens.Menu
+// atualScreen.init()
+
+
+export { game }
