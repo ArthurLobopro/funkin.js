@@ -14,11 +14,23 @@ const loadAudio = path => {
 }
 
 function delay(time) {
-    return new Promise( res => {
+    return new Promise(res => {
         setTimeout(() => {
             res(true)
         }, time);
     })
 }
 
-export { loadImage, loadAudio, delay }
+const range = (min, max, pass = 1) => {
+    let array = []
+    if (min > max) {
+        pass = pass > 0 ? pass *= -1 : pass
+        for (let i = min; i > max; i += pass) { array.push(i) }
+    }else{
+        for (let i = min; i < max; i += pass) { array.push(i) }
+    }
+    
+    return array
+}
+
+export { loadImage, loadAudio, delay, range }
