@@ -1,10 +1,11 @@
-const path = require('path')
-import { appPath } from '../../Paths.js'
-import { loadAudio, loadImage } from '../Util.js'
-import { animationBase } from '../Animation.js'
+import { loadImage } from '../Util.js'
+import { animationBase, transition } from '../Animation.js'
 import * as logoAnimation from "../../../assets/animations/logoBumpin.js"
 import * as girlFriendAnimation from "../../../assets/animations/gfDanceTitle.js"
 import * as titleEnterAnimation from "../../../assets/animations/titleEnter.js"
+import { Music, Sounds } from '../Audio.js'
+import { Menu } from './Menu.js'
+import { game } from '../Game.js'
 
 const canvas = document.querySelector('canvas')
 const ctx = canvas.getContext('2d')
@@ -15,10 +16,7 @@ const images = {
     titleEnter: await loadImage(titleEnterAnimation.path)
 }
 
-const backgroundMusic = loadAudio(path.resolve(appPath, "assets/music/freakyMenu.ogg"))
-backgroundMusic.play()
-
-const Start = {
+const screenComponents = {
     girlFriend: {
         ...new animationBase({ ...girlFriendAnimation }),
         draw() {
@@ -59,13 +57,13 @@ const Start = {
     },
     titleEnter: {
         ... new animationBase({ ...titleEnterAnimation.frames.pressEnter }),
+        yd: 0,
         draw() {
             const { width, height, x: sx, y: sy } = this.atualFrame
-            const dw = width 
-            const dh = height 
-            const x =  (canvas.width  - (dw / 2)) - canvas.width * 0.3
-            const y = canvas.height - dh - 50
-            console.table({x,y})
+            const dw = width
+            const dh = height
+            const x = (canvas.width - (dw / 2)) - canvas.width * 0.3
+            const y = canvas.height - dh - 50 - this.yd
             ctx.drawImage(
                 images.titleEnter, //Imagem
                 sx, sy, //Posição no sprite
@@ -73,25 +71,70 @@ const Start = {
                 x, y, //Posição x e y
                 dw, dh //largura e altura na tela
             )
+        },
+        switchFrames() {
+            this.frames = titleEnterAnimation.frames.enterPressed.frames
+            this.atualFrameIndex = 0
+            this.atualFrame[this.frames[0]]
+            this.yd = 17
+        },
+        reset() {
+            this.frames = titleEnterAnimation.frames.pressEnter
+            this.atualFrameIndex = 0
+            this.atualFrame[this.frames[0]]
+            this.yd = 0
         }
-    },
+    }
+}
 
+const Start = {
+    screenComponents,
+    renderInterval: null,
+    updateInterval: null,
     init() {
-        setInterval(() => Start.render(), 1000 / 30)
-        setInterval(() => {
-            Start.logo.attFrame()
-            Start.girlFriend.attFrame()
-            Start.titleEnter.attFrame()
+        if(!game.haveMusicPlaying){
+            Music.menuMusic.loop = true
+            Music.menuMusic.play()
+            game.haveMusicPlaying = true
+        }
+        this.renderInterval = setInterval(this.render, 1000 / 30)
+        this.updateInterval = setInterval(() => {
+            Object.entries(Start.screenComponents).forEach(([key, component]) => {
+                component.updateFrame()
+            })
         }, 1000 / 24)
+        window.onkeydown = this.onkeydown
     },
 
     render() {
         ctx.fillStyle = "#000000"
         ctx.fillRect(0, 0, canvas.width, canvas.height)
-        this.logo.draw()
-        this.girlFriend.draw()
-        this.titleEnter.draw()
+        Object.entries(Start.screenComponents).forEach(([key, component]) => {
+            component.draw()
+        })
     },
+    reset() {
+        Object.entries(Start.screenComponents).forEach( ([key,component]) => {
+            component.reset()
+        })
+        clearInterval(Start.updateInterval)
+        clearInterval(Start.renderInterval)
+    },
+    onkeydown(event) {
+        const { key } = event
+        console.log(key);
+        if (key === 'Enter') {
+            Sounds.selectMenu.play()
+            Start.screenComponents.titleEnter.switchFrames()
+            // clearInterval(Start.updateInterval)
+            clearInterval(Start.renderInterval)
+            const middleCallBack = () => {
+                Start.reset()
+                Menu.init()
+            }
+            transition(Start.render, middleCallBack)
+        }
+    }
 }
 
 export { Start }
