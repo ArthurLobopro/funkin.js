@@ -240,16 +240,6 @@ const storymode = {
             y: 1032,
             width: 615,
             height: 122
-        },
-        {
-            x: 1250,
-            y: 1032,
-            width: 796,
-            height: 173,
-            frameX: 0,
-            frameY: -3,
-            frameWidth: 796,
-            frameHeight: 181
         }
     ],
     focus:[
