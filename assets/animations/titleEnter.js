@@ -1,7 +1,4 @@
-const path = require('path')
-import { spritesFolder } from '../../src/Paths.js'
-
-const spritePath = path.resolve(spritesFolder, 'titleEnter.png')
+const path = 'titleEnter.png'
 
 const enterPressed = [
     { x: 0, y: 0, width: 1477, height: 79 },
@@ -63,9 +60,9 @@ const pressEnter = [
     { x: 0, y: 89, width: 1495, height: 96 }
 ]
 
-const frames = {
-    pressEnter: { frames: pressEnter },
-    enterPressed: { frames: enterPressed }
+const types = {
+    pressEnter,
+    enterPressed
 }
 
-export { spritePath as path, frames }
+export { path, types }

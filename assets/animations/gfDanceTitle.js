@@ -1,8 +1,4 @@
-const path = require('path')
-import { spritesFolder } from '../../src/Paths.js'
-
-const spritePath = path.resolve(spritesFolder, 'gfDanceTitle.png')
-
+const path = 'gfDanceTitle.png'
 const frames = [
     { x: 0, y: 0, width: 717, height: 648, frameX: -2, frameY: -14, frameWidth: 721, frameHeight: 662 },
     { x: 727, y: 0, width: 721, height: 648, frameX: 0, frameY: -14, frameWidth: 721, frameHeight: 662 },
@@ -36,4 +32,4 @@ const frames = [
     { x: 2908, y: 1992, width: 717, height: 656, frameX: -2, frameY: -6, frameWidth: 721, frameHeight: 662 }
 ]
 
-export { spritePath as path, frames }
+export { path, frames }
