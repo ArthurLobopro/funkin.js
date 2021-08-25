@@ -1,3 +1,5 @@
+const path = require('path')
+
 const loadImage = async path => {
     const image = new Image()
     image.src = path
@@ -8,9 +10,14 @@ const loadImage = async path => {
     })
 }
 
-const loadAudio = path => {
-    const audio = new Audio(path)
+const loadAudio = (...pathSegments) => {
+    const audio = new Audio(path.resolve(...pathSegments))
     return audio
+}
+
+const playAudio = audio => {
+    audio.currentTime = 0
+    audio.play()
 }
 
 function delay(time) {
@@ -33,4 +40,4 @@ const range = (min, max, pass = 1) => {
     return array
 }
 
-export { loadImage, loadAudio, delay, range }
+export { loadImage, loadAudio, playAudio, delay, range }
