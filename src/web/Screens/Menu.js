@@ -1,10 +1,11 @@
 const { shell } = require('electron')
 const { resolve } = require('path')
-import { loadImage, range, delay } from '../Util.js'
+import { loadImage, range, delay, playAudio } from '../Util.js'
 import { menuButtonsAnimationBasic, transition } from '../Animation.js'
 import { imagesFolder } from '../../Paths.js'
 import * as mainButtons from "../../../assets/animations/main_menu_buttons.js"
-
+import { Sounds } from "../Audio.js"
+import { Start } from './Start.js'
 
 const canvas = document.querySelector('canvas')
 const ctx = canvas.getContext('2d')
@@ -91,6 +92,7 @@ const functions = {
 
         buttons[newIndex][1].focus()
         moveBackground(newIndex)
+        playAudio(Sounds.scrollMenu)
     },
     up() {
         const buttons = Object.entries(screenComponents.buttons)
@@ -102,11 +104,20 @@ const functions = {
         const newIndex = focusedIndex === 0 ? buttons.length - 1 : focusedIndex - 1
         buttons[newIndex][1].focus()
         moveBackground(newIndex)
+        playAudio(Sounds.scrollMenu)
     },
     click() {
         const buttons = Object.entries(screenComponents.buttons)
         const focusedButton = buttons.find(([key, component]) => component.isFocused)
         focusedButton[1].click()
+    },
+    returnToStart(){
+        clearInterval(Menu.renderInterval)
+        const middleCallBack = () => {
+            Menu.reset()
+            Start.init()
+        }
+        transition(Menu.render, middleCallBack)
     }
 }
 
@@ -115,7 +126,8 @@ const buttonsFunctions = {
     "ArrowDown": functions.down,
     "w": functions.up,
     "ArrowUp": functions.up,
-    "Enter": functions.click
+    "Enter": functions.click,
+    "Escape": functions.returnToStart
 }
 
 const moveBackground = async index => {
@@ -133,7 +145,7 @@ const Menu = {
     renderInterval: null,
     updateInterval: null,
     backgroudY: 0,
-    draw() {
+    render() {
         ctx.clearRect(0, 0, canvas.width, canvas.height)
         const { backgroudYellow: backgroud } = images
         ctx.drawImage(
@@ -153,9 +165,16 @@ const Menu = {
         })
     },
     init() {
-        this.renderInterval = setInterval(Menu.draw, 1000 / 60);
+        this.renderInterval = setInterval(Menu.render, 1000 / 60);
         this.updateInterval = setInterval(Menu.updateFrames, 1000 / 18)
         window.onkeydown = this.onkeydown
+    },
+    reset(){
+        clearInterval(this.renderInterval)
+        clearInterval(this.updateInterval)
+        Object.entries(screenComponents.buttons).forEach(([key, component]) => {
+            component.reset()
+        })
     },
     onkeydown(event) {
         const { key } = event
