@@ -32,6 +32,12 @@ class menuButtonsAnimationBasic {
             this.atualFrameIndex = this.atualFrameIndex + 1 === this.frames.length ? 0 : this.atualFrameIndex + 1
             this.atualFrame = this.frames[this.atualFrameIndex]
         }
+        this.reset = function(){
+            this.atualFrameIndex = 0
+            this.isFocused = isFocused
+            this.frames = this.types[isFocused ? 'focus' : 'basic']
+            this.atualFrame = this.frames[0]
+        }
         this.focus = function () {
             if (this.isFocused)
                 return
@@ -59,8 +65,6 @@ async function transition(renderCallBack, middleCallBack) {
         const gradient = ctx.createLinearGradient(0, h, 0, canvas.height + h)
         gradient.addColorStop(0, '#000')
         gradient.addColorStop(1, '#00000000')
-        // ctx.fillStyle = "#000"
-        // ctx.fillRect(0, 0, canvas.width, h)
         ctx.fillStyle = gradient
         ctx.fillRect(0, 0, canvas.width, canvas.height)
         await delay(10)
