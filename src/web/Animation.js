@@ -20,42 +20,46 @@ class animationBase {
 }
 
 class menuButtonsAnimationBasic {
-    constructor({ types, isFocused = false }) {
-
-        this.isFocused = isFocused
+    isFocused = false
+    constructor({ types, ...atributes }) {
+        Object.entries(atributes).forEach( ([key, value]) => {
+            this[key] = value
+        })
+        
+        console.log(atributes);
         this.types = types
         this.frames = this.types[this.isFocused ? 'focus' : 'basic']
         this.atualFrame = this.frames[0]
         this.atualFrameIndex = 0
 
-        this.updateFrame = function () {
-            this.atualFrameIndex = this.atualFrameIndex + 1 === this.frames.length ? 0 : this.atualFrameIndex + 1
-            this.atualFrame = this.frames[this.atualFrameIndex]
-        }
-        this.reset = function(){
-            this.atualFrameIndex = 0
-            this.isFocused = isFocused
-            this.frames = this.types[isFocused ? 'focus' : 'basic']
-            this.atualFrame = this.frames[0]
-        }
-        this.focus = function () {
-            if (this.isFocused)
-                return
+    }
+    updateFrame() {
+        this.atualFrameIndex = this.atualFrameIndex + 1 === this.frames.length ? 0 : this.atualFrameIndex + 1
+        this.atualFrame = this.frames[this.atualFrameIndex]
+    }
+    reset() {
+        this.atualFrameIndex = 0
+        this.isFocused = isFocused
+        this.frames = this.types[isFocused ? 'focus' : 'basic']
+        this.atualFrame = this.frames[0]
+    }
+    focus() {
+        if (this.isFocused)
+            return
 
-            this.isFocused = true
-            this.frames = this.types.focus
-            this.atualFrameIndex = 0
-            this.atualFrame = this.frames[0]
-        }
-        this.unFocus = function () {
-            if (!this.isFocused)
-                return
+        this.isFocused = true
+        this.frames = this.types.focus
+        this.atualFrameIndex = 0
+        this.atualFrame = this.frames[0]
+    }
+    unFocus() {
+        if (!this.isFocused)
+            return
 
-            this.isFocused = false
-            this.frames = this.types.basic
-            this.atualFrameIndex = 0
-            this.atualFrame = this.frames[0]
-        }
+        this.isFocused = false
+        this.frames = this.types.basic
+        this.atualFrameIndex = 0
+        this.atualFrame = this.frames[0]
     }
 }
 
