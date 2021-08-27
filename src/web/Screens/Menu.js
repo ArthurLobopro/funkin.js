@@ -17,8 +17,9 @@ const images = {
 
 const screenComponents = {
     buttons: {
-        storyMode: {
-            ...new menuButtonsAnimationBasic({ types: mainButtons.storymode, isFocused: true }),
+        storyMode: new menuButtonsAnimationBasic({
+            types: mainButtons.storymode,
+            isFocused: true,
             draw() {
                 const { x: sx, y: sy, width, height, frameX = 0, frameY = 0, frameWidth = 0, frameHeight = 0 } = this.atualFrame
                 const dh = frameHeight || height
@@ -36,9 +37,9 @@ const screenComponents = {
             click() {
 
             }
-        },
-        freeplay: {
-            ...new menuButtonsAnimationBasic({ types: mainButtons.freeplay }),
+        }),
+        freeplay: new menuButtonsAnimationBasic({
+            types: mainButtons.freeplay,
             draw() {
                 const { x: sx, y: sy, width, height, frameX = 0, frameY = 0, frameWidth = 0, frameHeight = 0 } = this.atualFrame
                 const dh = frameHeight || height
@@ -56,9 +57,10 @@ const screenComponents = {
             click() {
 
             }
-        },
-        donate: {
-            ...new menuButtonsAnimationBasic({ types: mainButtons.donate }),
+        }),
+
+        donate: new menuButtonsAnimationBasic({
+            types: mainButtons.donate,
             draw() {
                 const { x: sx, y: sy, width, height, frameX = 0, frameY = 0, frameWidth = 0, frameHeight = 0 } = this.atualFrame
                 const dh = frameHeight || height
@@ -76,7 +78,7 @@ const screenComponents = {
             click() {
                 shell.openExternal("https://ninja-muffin24.itch.io/funkin")
             }
-        }
+        }),
     }
 }
 
@@ -111,7 +113,7 @@ const functions = {
         const focusedButton = buttons.find(([key, component]) => component.isFocused)
         focusedButton[1].click()
     },
-    returnToStart(){
+    returnToStart() {
         clearInterval(Menu.renderInterval)
         const middleCallBack = () => {
             Menu.reset()
@@ -134,7 +136,7 @@ const moveBackground = async index => {
     const newBackgroundY = 30 * index || 0
     const diference = Menu.backgroudY - newBackgroundY
     const oldBackgroundY = Menu.backgroudY
-    range(0, diference,2).forEach( async (value, index) => {
+    range(0, diference, 2).forEach(async (value, index) => {
         await delay(25 * index)
         Menu.backgroudY = oldBackgroundY - value
     })
@@ -169,7 +171,7 @@ const Menu = {
         this.updateInterval = setInterval(Menu.updateFrames, 1000 / 18)
         window.onkeydown = this.onkeydown
     },
-    reset(){
+    reset() {
         clearInterval(this.renderInterval)
         clearInterval(this.updateInterval)
         Object.entries(screenComponents.buttons).forEach(([key, component]) => {
