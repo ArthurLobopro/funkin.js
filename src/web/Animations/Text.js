@@ -45,11 +45,9 @@ class createText {
     }
     setFrames(index) {
         this.frames = []
-        console.log(this.frames);
         this.charObjects.forEach(char => {
             this.frames.push(char[index])
         })
-        console.log(this.frames);
     }
     getWidth() {
         return this.charObjects.reduce((currentWidth, char) => {
@@ -91,25 +89,27 @@ class createText {
     }
 }
 
-class createBoldText extends createText{
-    constructor(text, x = 0, y = 0) {
+class BoldText extends createText{
+    constructor(text, x = 0, y = 0, transparency = false) {
         super();
         this.charObjects = []
         this.atualIndex = 0
         this.x = x
         this.y = y
         this.frames = []
-        String(text).split('').forEach(char => {
+        this.transparency = transparency
+        String(text).toUpperCase().split('').forEach(char => {
             if(caracteres.upperCase.includes(char)){
                 this.charObjects.push(upperCase.bold[char])
             }
         })
-        console.log(this.charObjects);
-        console.log(this.getWidth())
         this.setFrames(0)
-        console.log(this.frames);
-        this.render()
+    }
+    render() {
+        ctx.save()
+        ctx.globalAlpha = this.transparency ? 0.6 : 1
+        this.drawChars(this.x, this.y)
+        ctx.restore()
     }
 }
-
-export { createText, createBoldText }
+export { createText, BoldText }

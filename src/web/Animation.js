@@ -39,8 +39,7 @@ class menuButtonsAnimationBasic {
     }
     reset() {
         this.atualFrameIndex = 0
-        this.isFocused = isFocused
-        this.frames = this.types[isFocused ? 'focus' : 'basic']
+        this.frames = this.types[this.isFocused ? 'focus' : 'basic']
         this.atualFrame = this.frames[0]
     }
     focus() {
