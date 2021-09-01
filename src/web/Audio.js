@@ -4,6 +4,9 @@ import { loadAudio } from './Util.js'
 
 const Music = {
     menuMusic: loadAudio(musicsFolder, "freakyMenu.ogg"),
+    Tutorial_Inst: loadAudio(musicsFolder, "Tutorial_Inst.ogg"),
+    Bopeebo_Inst: loadAudio(musicsFolder, "Bopeebo_Inst.ogg"),
+    Fresh_Inst: loadAudio(musicsFolder , "Fresh_Inst.ogg")
 }
 
 const Sounds = {
