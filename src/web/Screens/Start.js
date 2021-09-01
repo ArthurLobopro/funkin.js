@@ -94,9 +94,7 @@ const Start = {
     updateInterval: null,
     init() {
         if (!game.haveMusicPlaying) {
-            Music.menuMusic.loop = true
-            Music.menuMusic.play()
-            game.haveMusicPlaying = true
+            game.setBackgroudMusic(Music.menuMusic)
         }
         this.renderInterval = setInterval(this.render, 1000 / 30)
         this.updateInterval = setInterval(() => {

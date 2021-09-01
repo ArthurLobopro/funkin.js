@@ -1,7 +1,16 @@
 import Screens from "./Screens.js"
 
 const game = {
-    haveMusicPlaying: false
+    haveMusicPlaying: false,
+    backgroundMusic: null,
+    setBackgroudMusic(music){
+        this.backgroundMusic?.pause()
+        this.backgroundMusic = music
+        this.backgroundMusic.loop = true
+        this.backgroundMusic.currentTime = 0
+        this.backgroundMusic.play()
+        this.haveMusicPlaying = true
+    }
 }
 
 const atualScreen = Screens.Start
@@ -10,6 +19,5 @@ atualScreen.init()
 
 // const atualScreen = Screens.Menu
 // atualScreen.init()
-
 
 export { game }
