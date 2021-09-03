@@ -3,6 +3,7 @@ import { imagesFolder } from "../../Paths.js";
 import { loadImage, playAudio } from "../Util.js";
 import { BoldButton } from "../Animations/Buttons.js";
 import { Music, Sounds } from "../Audio.js";
+import { Menu } from "./Menu.js"
 
 const canvas = document.querySelector('canvas')
 const ctx = canvas.getContext('2d')
@@ -50,6 +51,10 @@ const functions = {
         screenComponents.buttons[index].unFocus()
         screenComponents.buttons[newIndex].focus()
         playAudio(Sounds.scrollMenu)
+    },
+    returnToMenu(){
+        FreePlay.reset()
+        Menu.init()
     }
 }
 
@@ -59,7 +64,7 @@ const buttonsFunctions = {
     "w": functions.up,
     "ArrowUp": functions.up,
     // "Enter": functions.click,
-    // "Escape": functions.returnToStart
+    "Escape": functions.returnToMenu
 }
 
 const FreePlay = {
@@ -93,6 +98,13 @@ const FreePlay = {
     onkeydown(event) {
         const { key } = event
         buttonsFunctions?.[key]?.()
+    },
+    reset(){
+        clearInterval(this.renderInterval)
+        clearInterval(this.updateInterval)
+        screenComponents.buttons.forEach(component => {
+            component.reset()
+        })
     }
 }
 
