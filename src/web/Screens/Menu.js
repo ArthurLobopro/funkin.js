@@ -6,6 +6,7 @@ import { imagesFolder } from '../../Paths.js'
 import * as mainButtons from "../../../assets/animations/main_menu_buttons.js"
 import { Sounds } from "../Audio.js"
 import { Start } from './Start.js'
+import { FreePlay } from './FreePlay.js'
 
 const canvas = document.querySelector('canvas')
 const ctx = canvas.getContext('2d')
@@ -55,7 +56,8 @@ const screenComponents = {
                 )
             },
             click() {
-
+                Menu.reset()
+                FreePlay.init()
             }
         }),
 
