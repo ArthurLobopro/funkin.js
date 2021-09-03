@@ -87,6 +87,10 @@ class createText {
     render() {
         this.drawChars(this.x, this.y)
     }
+    reset(){
+        this.atualIndex = 0
+        this.setFrames(0)
+    }
 }
 
 class BoldText extends createText{
