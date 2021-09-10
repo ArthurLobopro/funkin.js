@@ -12,6 +12,14 @@ const caracteres = {
     ]
 }
 
+const space = [{
+    x:0,
+    y:0,
+    height:0,
+    width: 40,
+    isSpace: true
+}]
+
 const canvas = document.querySelector('canvas')
 const ctx = canvas.getContext('2d')
 
@@ -36,11 +44,12 @@ class createText {
             if(caracteres.upperCase.includes(char)){
                 this.charObjects.push(upperCase.normal[char])
             }
+            if(char === " "){
+                this.charObjects.push(space)
+            }
         })
         console.log(this.charObjects);
-        console.log(this.getWidth())
         this.setFrames(0)
-        console.log(this.frames);
         this.render()
     }
     setFrames(index) {
@@ -65,7 +74,12 @@ class createText {
     }
     drawChars(x, y) {
         this.frames.forEach((char, index) => {
-            const { x: sx, y: sy, width, height, frameHeight = 0, frameWidth = 0, frameX = 0, frameY = 0 } = char
+            const { 
+                x: sx, y: sy, width, height, 
+                frameHeight = 0, frameWidth = 0, frameX = 0, 
+                frameY = 0, isSpace = false 
+            } = char
+            if(isSpace) return
             const dx = x + this.getCurrentWidth(index) + 5 * index + frameX
             const dy = y + frameY
             const dw = frameWidth || width
@@ -105,6 +119,9 @@ class BoldText extends createText{
         String(text).toUpperCase().split('').forEach(char => {
             if(caracteres.upperCase.includes(char)){
                 this.charObjects.push(upperCase.bold[char])
+            }
+            if(char === " "){
+                this.charObjects.push(space)
             }
         })
         this.setFrames(0)
