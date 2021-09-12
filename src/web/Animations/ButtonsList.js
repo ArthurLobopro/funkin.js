@@ -1,4 +1,4 @@
-import { range,playAudio } from "../Util.js"
+import { range, playAudio } from "../Util.js"
 import { Sounds } from "../Audio.js"
 const canvas = document.querySelector('canvas')
 
@@ -22,8 +22,8 @@ class ButtonsList {
         }
         this.updateCenterY()
 
-        for (const index in range(this.focusedIndex , this.buttons.length)) {
-            this.buttons[index].y = 
+        for (const index in range(this.focusedIndex, this.buttons.length)) {
+            this.buttons[index].y =
                 this.centerY + (this.mediumHeight * index + this.spaceament * index)
         }
 
@@ -33,14 +33,43 @@ class ButtonsList {
         this.centerY = canvas.height / 2 - this.mediumHeight / 2
     }
 
+    moveUp() {
+        if (this.focusedIndex != this.buttons.length - 1) {
+            for (const i in this.buttons) {
+                this.buttons[i].y += this.spaceament + this.mediumHeight
+            }
+        } else {
+            console.log(range(this.buttons.length - 1, - 1));
+            for (let index in range(this.buttons.length - 1, - 1)) {
+                const mult = (this.buttons.length - 1 - index)
+                this.buttons[index].y =
+                    this.centerY - (this.spaceament * mult + this.mediumHeight * mult)
+            }
+        }
+    }
+
+    moveDown() {
+        if (this.focusedIndex != 0) {
+            for (const i in this.buttons) {
+                this.buttons[i].y -= this.spaceament + this.mediumHeight
+            }
+        } else {
+            for (const index in range(this.focusedIndex, this.buttons.length)) {
+                this.buttons[index].y =
+                    this.centerY + (this.mediumHeight * index + this.spaceament * index)
+            }
+        }
+    }
+
     down() {
         const index = this.focusedIndex
         const newIndex = index + 1 === this.buttons.length ? 0 : index + 1
         this.buttons[index].unFocus()
         this.buttons[newIndex].focus()
         this.focusedIndex = newIndex
-
+        this.updateCenterY()
         playAudio(Sounds.scrollMenu)
+        this.moveDown()
     }
     up() {
         const index = this.focusedIndex
@@ -48,7 +77,9 @@ class ButtonsList {
         this.buttons[index].unFocus()
         this.buttons[newIndex].focus()
         this.focusedIndex = newIndex
+        this.updateCenterY()
         playAudio(Sounds.scrollMenu)
+        this.moveUp()
     }
 
     render() {
