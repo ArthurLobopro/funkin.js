@@ -205,8 +205,8 @@ const upperCase = {
         H: [
             { x: 742, y: 221, width: 45, height: 66 },
             { x: 742, y: 221, width: 45, height: 66 },
-            { x: 797, y: 221, width: 44, height: 66, frameX: 0, frameWidth: 45, frameHeight: 66 },
-            { x: 797, y: 221, width: 44, height: 66, frameX: 0, frameWidth: 45, frameHeight: 66 }
+            { x: 797, y: 221, width: 44, height: 66, frameX: 0, frameWidth: 44, frameHeight: 66 },
+            { x: 797, y: 221, width: 44, height: 66, frameX: 0, frameWidth: 44, frameHeight: 66 }
         ],
         I: [
             { x: 935, y: 221, width: 43, height: 64 },
