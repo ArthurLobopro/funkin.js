@@ -2,8 +2,6 @@ import { range, playAudio } from "../Util.js"
 import { Sounds } from "../Audio.js"
 const canvas = document.querySelector('canvas')
 
-
-
 class ButtonsList {
 
     buttons = []
@@ -61,6 +59,10 @@ class ButtonsList {
         }
     }
 
+    click() {
+        this.buttons[this.focusedIndex].click()
+    }
+
     down() {
         const index = this.focusedIndex
         const newIndex = index + 1 === this.buttons.length ? 0 : index + 1
@@ -84,6 +86,10 @@ class ButtonsList {
 
     render() {
         this.buttons.forEach(button => button.render())
+    }
+
+    reset() {
+        this.buttons.forEach(button => button.reset())
     }
 
     updateFrames() {
