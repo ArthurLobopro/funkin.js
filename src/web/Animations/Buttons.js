@@ -3,12 +3,19 @@ import { game } from "../Game.js";
 
 class BoldButton extends BoldText {
     music = null
-    constructor({ text, x, y, focused = false, ...atributes }) {
+
+    click(){}
+    
+    constructor({ text, x, y, focused = false, click, ...atributes }) {
         super(text, x, y, !focused)
         Object.entries(atributes).forEach( ([key, value]) => {
             this[key] = value
         })
         this.isFocused = focused
+        if(typeof click !== 'function'){
+            throw new Error("click is not a function")
+        }
+        this.click = click
     }
     focus() {
         if (this.isFocused)
