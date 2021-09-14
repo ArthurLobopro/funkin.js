@@ -1,9 +1,10 @@
-import { createText, BoldText } from "../Animations/Text.js";
 import { imagesFolder } from "../../Paths.js";
-import { loadImage, playAudio } from "../Util.js";
+import { loadImage } from "../Util.js";
 import { BoldButton } from "../Animations/Buttons.js";
-import { Music, Sounds } from "../Audio.js";
+import { Music } from "../Audio.js";
 import { Menu } from "./Menu.js"
+import { ButtonsList } from "../Animations/ButtonsList.js";
+import { transition } from "../Animation.js";
 
 const canvas = document.querySelector('canvas')
 const ctx = canvas.getContext('2d')
@@ -20,41 +21,25 @@ const positions = {
     bottom: canvas.height / 2 - 50 / 2 + 100 * 3
 }
 
+function setScreen(screen) {
+    FreePlay.reset()
+    transition(FreePlay.render, () => screen.init())
+}
+
 const screenComponents = {
-    buttons: [
-        new BoldButton({ text: "Tutorial", x: 50, y: positions.middle, focused: true, music: Music.Tutorial_Inst }),
-        new BoldButton({ text: "Bopeebo", x: 50, y: positions.innerBotton, music: Music.Bopeebo_Inst }),
-        new BoldButton({ text: "Fresh", x: 50, y: positions.bottom, music: Music.Fresh_Inst }),
-        // new BoldButton("Dadbatle", 50, positions.top),
-        // new BoldButton("Spookeez", 50, positions.innerTop)
-    ]
+    buttons: new ButtonsList([
+        new BoldButton({ text: "Tutorial", x: 50, focused: true, music: Music.Tutorial_Inst, click() { } }),
+        new BoldButton({ text: "Bopeebo", x: 50, music: Music.Bopeebo_Inst, click() { } }),
+        new BoldButton({ text: "Fresh", x: 50, music: Music.Fresh_Inst, click() { } }),
+        // new BoldButton({ text: "Dadbatle", x: 50, click(){} }),
+    ])
 }
-
-const getFocusedButtonIndex = () => {
-    const index = screenComponents.buttons.findIndex(button => button.isFocused)
-    return index
-}
-
-const getFocusedButton = () => screenComponents.buttons.find(button => button.isFocused)
 
 const functions = {
-    down() {
-        const index = getFocusedButtonIndex()
-        const newIndex = index + 1 === screenComponents.buttons.length ? 0 : index + 1
-        screenComponents.buttons[index].unFocus()
-        screenComponents.buttons[newIndex].focus()
-        playAudio(Sounds.scrollMenu)
-    },
-    up() {
-        const index = getFocusedButtonIndex()
-        const newIndex = index - 1 === -1 ? screenComponents.buttons.length - 1 : index - 1
-        screenComponents.buttons[index].unFocus()
-        screenComponents.buttons[newIndex].focus()
-        playAudio(Sounds.scrollMenu)
-    },
-    returnToMenu(){
-        FreePlay.reset()
-        Menu.init()
+    down: () => screenComponents.buttons.down(),
+    up: () => screenComponents.buttons.up(),
+    returnToMenu() {
+        setScreen(Menu)
     }
 }
 
@@ -63,7 +48,7 @@ const buttonsFunctions = {
     "ArrowDown": functions.down,
     "w": functions.up,
     "ArrowUp": functions.up,
-    // "Enter": functions.click,
+    "Enter": () => screenComponents.buttons.click(),
     "Escape": functions.returnToMenu
 }
 
@@ -80,31 +65,24 @@ const FreePlay = {
             0, 0,
             canvas.width, canvas.height
         )
-        screenComponents.buttons.forEach(component => {
-            component.render()
-        })
+        screenComponents.buttons.render()
     },
     updateFrames() {
-        screenComponents.buttons.forEach(component => {
-            component.update()
-        })
+        screenComponents.buttons.updateFrames()
     },
     init() {
         this.renderInterval = setInterval(FreePlay.render, 1000 / 60);
         this.updateInterval = setInterval(FreePlay.updateFrames, 1000 / 18)
-        getFocusedButton().play()
         window.onkeydown = this.onkeydown
     },
     onkeydown(event) {
         const { key } = event
         buttonsFunctions?.[key]?.()
     },
-    reset(){
+    reset() {
         clearInterval(this.renderInterval)
         clearInterval(this.updateInterval)
-        screenComponents.buttons.forEach(component => {
-            component.reset()
-        })
+        screenComponents.buttons.reset()
     }
 }
 
