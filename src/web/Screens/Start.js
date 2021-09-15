@@ -1,25 +1,25 @@
 import { loadImage } from '../Util.js'
 import { animationBase, transition } from '../Animation.js'
-import * as logoAnimation from "../../../assets/animations/logoBumpin.js"
-import * as girlFriendAnimation from "../../../assets/animations/gfDanceTitle.js"
-import * as titleEnterAnimation from "../../../assets/animations/titleEnter.js"
+import { frames as logoFrames } from "../../../assets/animations/logoBumpin.js"
+import { frames as GfDanceFrames } from "../../../assets/animations/gfDanceTitle.js"
+import { types as titleEnterFramesTypes } from "../../../assets/animations/titleEnter.js"
 import { Music, Sounds } from '../Audio.js'
 import { Menu } from './Menu.js'
 import { game } from '../Game.js'
-import { spritesFolder } from '../../Paths.js'
+import { Sprites } from '../Images.js'
 
 const canvas = document.querySelector('canvas')
 const ctx = canvas.getContext('2d')
 
 const images = {
-    girlFriend: await loadImage(spritesFolder, girlFriendAnimation.path),
-    logo: await loadImage(spritesFolder, logoAnimation.path),
-    titleEnter: await loadImage(spritesFolder, titleEnterAnimation.path)
+    girlFriend: Sprites.girlFriendTitle,
+    logo: Sprites.logo,
+    titleEnter: Sprites.titleEnter
 }
 
 const screenComponents = {
-    girlFriend: {
-        ...new animationBase({ ...girlFriendAnimation }),
+    girlFriend: new animationBase({
+        frames: GfDanceFrames,
         draw() {
             const { x: sx, y: sy, width, height, frameHeight = 0, frameWidth = 0, frameX = 0, frameY = 0 } = this.atualFrame
             const x = canvas.width - width - 40 + frameX / 2
@@ -34,10 +34,9 @@ const screenComponents = {
                 dx, dy  //largura e altura na tela
             )
         }
-
-    },
-    logo: {
-        ...new animationBase({ ...logoAnimation }),
+    }),
+    logo: new animationBase({
+        frames: logoFrames,
         x: -130,
         y: -90,
         draw() {
@@ -55,9 +54,10 @@ const screenComponents = {
                 dw, dh  //largura e altura na tela
             )
         }
-    },
-    titleEnter: {
-        ... new animationBase({ frames: titleEnterAnimation.types.pressEnter }),
+    }),
+
+    titleEnter: new animationBase({
+        frames: titleEnterFramesTypes.pressEnter,
         yd: 0,
         draw() {
             const { width, height, x: sx, y: sy } = this.atualFrame
@@ -74,18 +74,18 @@ const screenComponents = {
             )
         },
         switchFrames() {
-            this.frames = titleEnterAnimation.types.enterPressed
+            this.frames = titleEnterFramesTypes.enterPressed
             this.atualFrameIndex = 0
             this.atualFrame[this.frames[0]]
             this.yd = 17
         },
         reset() {
-            this.frames = titleEnterAnimation.types.pressEnter
+            this.frames = titleEnterFramesTypes.pressEnter
             this.atualFrameIndex = 0
             this.atualFrame[this.frames[0]]
             this.yd = 0
         }
-    }
+    })
 }
 
 const Start = {
