@@ -4,28 +4,32 @@ const canvas = document.querySelector('canvas')
 const ctx = canvas.getContext('2d')
 
 class animationBase {
-    constructor({ frames }) {
+    constructor({ frames, ...args }) {
         this.frames = frames
         this.atualFrameIndex = 0
         this.atualFrame = this.frames[0]
-        this.reset = function () {
-            this.atualFrameIndex = 0
-            this.atualFrame = this.frames[0]
-        }
-        this.updateFrame = function () {
-            this.atualFrameIndex = this.atualFrameIndex + 1 === this.frames.length ? 0 : this.atualFrameIndex + 1
-            this.atualFrame = this.frames[this.atualFrameIndex]
-        }
+
+        Object.entries(args).forEach( ([key, value]) => this[key] = value )
+    }
+
+    reset() {
+        this.atualFrameIndex = 0
+        this.atualFrame = this.frames[0]
+    }
+
+    updateFrame() {
+        this.atualFrameIndex = this.atualFrameIndex + 1 === this.frames.length ? 0 : this.atualFrameIndex + 1
+        this.atualFrame = this.frames[this.atualFrameIndex]
     }
 }
 
 class menuButtonsAnimationBasic {
     isFocused = false
     constructor({ types, ...atributes }) {
-        Object.entries(atributes).forEach( ([key, value]) => {
+        Object.entries(atributes).forEach(([key, value]) => {
             this[key] = value
         })
-        
+
         console.log(atributes);
         this.types = types
         this.frames = this.types[this.isFocused ? 'focus' : 'basic']
@@ -63,25 +67,30 @@ class menuButtonsAnimationBasic {
 }
 
 async function transition(renderCallBack, middleCallBack) {
-    for (let h = 0; h < canvas.height; h += 15) {
-        renderCallBack?.()
-        const gradient = ctx.createLinearGradient(0, h, 0, canvas.height + h)
+    const drawGradient = h => {
+        const gradient = ctx.createLinearGradient(0, h, 0, canvas.height * 1.5 + h)
         gradient.addColorStop(0, '#000')
         gradient.addColorStop(1, '#00000000')
         ctx.fillStyle = gradient
         ctx.fillRect(0, 0, canvas.width, canvas.height)
+    }
+
+    const drawReverseGradient = h => {
+        const gradient = ctx.createLinearGradient(0, h, 0, canvas.height * 1.5 + h)
+        gradient.addColorStop(0, 'transparent')
+        gradient.addColorStop(1, '#000')
+        ctx.fillStyle = gradient
+        ctx.fillRect(0, 0, canvas.width, canvas.height)
+    }
+
+    for (let h = 0; h < canvas.height * 1.5; h += 15) {
+        renderCallBack?.()
+        drawGradient(h)
         await delay(10)
     }
     middleCallBack?.()
-    for (let h = 0; h < canvas.height; h += 15) {
-        // renderCallBack?.()
-        const gradient = ctx.createLinearGradient(0, h, 0, canvas.height + h)
-        gradient.addColorStop(0, 'transparent')
-        gradient.addColorStop(1, '#000')
-        // ctx.fillStyle = "#000"
-        // ctx.fillRect(0, 0, canvas.width, h)
-        ctx.fillStyle = gradient
-        ctx.fillRect(0, 0, canvas.width, canvas.height)
+    for (let h = 0; h < canvas.height * 1.5; h += 15) {
+        drawReverseGradient(h)
         await delay(10)
     }
 }
