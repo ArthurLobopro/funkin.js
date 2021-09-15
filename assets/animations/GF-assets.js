@@ -1,4 +1,4 @@
-const path = GF - assets.png
+const path = "GF-assets.png"
 
 const frames = {
     Cheer: [
@@ -274,4 +274,4 @@ const frames = {
         { x: 0, y: 5294, width: 699, height: 637, frameX: -2, frameY: -1, frameWidth: 703, frameHeight: 638 },
     ]
 }
-export { frames }
+export { frames, path }
