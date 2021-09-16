@@ -1,24 +1,16 @@
-import { imagesFolder } from "../../Paths.js";
-import { loadImage } from "../Util.js";
 import { BoldButton } from "../Animations/Buttons.js";
 import { Music } from "../Audio.js";
 import { Menu } from "./Menu.js"
 import { ButtonsList } from "../Animations/ButtonsList.js";
 import { transition } from "../Animation.js";
+import { Phases } from "../Phases.js";
+import { Images } from "../Images.js";
 
 const canvas = document.querySelector('canvas')
 const ctx = canvas.getContext('2d')
 
 const images = {
-    backgroudBlue: await loadImage(imagesFolder, 'menuBGBlue.png'),
-}
-
-const positions = {
-    top: canvas.height / 2 - 50 / 2 - 100 * 3,
-    innerTop: canvas.height / 2 - 50 / 2 - 100 * 1.5,
-    middle: canvas.height / 2 - 50 / 2,
-    innerBotton: canvas.height / 2 - 50 / 2 + 100 * 1.5,
-    bottom: canvas.height / 2 - 50 / 2 + 100 * 3
+    backgroudBlue: Images.backgroudBlue,
 }
 
 function setScreen(screen) {
@@ -28,7 +20,10 @@ function setScreen(screen) {
 
 const screenComponents = {
     buttons: new ButtonsList([
-        new BoldButton({ text: "Tutorial", x: 50, focused: true, music: Music.Tutorial_Inst, click() { } }),
+        new BoldButton({ 
+            text: "Tutorial", x: 50, focused: true, music: Music.Tutorial_Inst,
+             click(){ setScreen(Phases.Tutorial) } 
+        }),
         new BoldButton({ text: "Bopeebo", x: 50, music: Music.Bopeebo_Inst, click() { } }),
         new BoldButton({ text: "Fresh", x: 50, music: Music.Fresh_Inst, click() { } }),
         // new BoldButton({ text: "Dadbatle", x: 50, click(){} }),

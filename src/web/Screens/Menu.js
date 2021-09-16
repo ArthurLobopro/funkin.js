@@ -1,19 +1,18 @@
 const { shell } = require('electron')
-const { resolve } = require('path')
-import { loadImage, range, delay, playAudio } from '../Util.js'
+import { range, delay, playAudio } from '../Util.js'
 import { menuButtonsAnimationBasic, transition } from '../Animation.js'
-import { imagesFolder } from '../../Paths.js'
 import * as mainButtons from "../../../assets/animations/main_menu_buttons.js"
 import { Sounds } from "../Audio.js"
 import { Start } from './Start.js'
 import { FreePlay } from './FreePlay.js'
+import { Images, Sprites } from '../Images.js'
 
 const canvas = document.querySelector('canvas')
 const ctx = canvas.getContext('2d')
 
 const images = {
-    backgroudYellow: await loadImage(resolve(imagesFolder, 'menuBG.png')),
-    buttons: await loadImage(resolve(mainButtons.path))
+    backgroudYellow: Images.backgroudYellow,
+    buttons: Sprites.mainMenuButtons
 }
 
 const screenComponents = {
