@@ -1,6 +1,5 @@
-import { path, numbers, lowerCase, upperCase } from "../../../assets/animations/alphabet.js"
-import { spritesFolder } from "../../Paths.js"
-import { loadImage } from "../Util.js"
+import { numbers, lowerCase, upperCase } from "../../../assets/animations/alphabet.js"
+import { Sprites } from "../Images.js"
 
 const caracteres = {
     numbers: ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"],
@@ -13,9 +12,9 @@ const caracteres = {
 }
 
 const space = [{
-    x:0,
-    y:0,
-    height:0,
+    x: 0,
+    y: 0,
+    height: 0,
     width: 40,
     isSpace: true
 }]
@@ -23,12 +22,12 @@ const space = [{
 const canvas = document.querySelector('canvas')
 const ctx = canvas.getContext('2d')
 
-const sprite = await loadImage(spritesFolder, path)
+const { alphabet } = Sprites
 
 class createText {
 
     constructor(text, x = 0, y = 0) {
-        if(text === undefined) return
+        if (text === undefined) return
         this.charObjects = []
         this.atualIndex = 0
         this.x = x
@@ -38,13 +37,13 @@ class createText {
             if (caracteres.numbers.includes(char)) {
                 this.charObjects.push(numbers[char])
             }
-            if(caracteres.lowerCase.includes(char)){
+            if (caracteres.lowerCase.includes(char)) {
                 this.charObjects.push(lowerCase[char])
             }
-            if(caracteres.upperCase.includes(char)){
+            if (caracteres.upperCase.includes(char)) {
                 this.charObjects.push(upperCase.normal[char])
             }
-            if(char === " "){
+            if (char === " ") {
                 this.charObjects.push(space)
             }
         })
@@ -74,18 +73,18 @@ class createText {
     }
     drawChars(x, y) {
         this.frames.forEach((char, index) => {
-            const { 
-                x: sx, y: sy, width, height, 
-                frameHeight = 0, frameWidth = 0, frameX = 0, 
-                frameY = 0, isSpace = false 
+            const {
+                x: sx, y: sy, width, height,
+                frameHeight = 0, frameWidth = 0, frameX = 0,
+                frameY = 0, isSpace = false
             } = char
-            if(isSpace) return
+            if (isSpace) return
             const dx = x + this.getCurrentWidth(index) + 5 * index + frameX
             const dy = y + frameY
             const dw = frameWidth || width
             const dh = frameHeight || height
             ctx.drawImage(
-                sprite,
+                alphabet,
                 sx, sy,
                 width, height,
                 dx, dy,
@@ -101,13 +100,13 @@ class createText {
     render() {
         this.drawChars(this.x, this.y)
     }
-    reset(){
+    reset() {
         this.atualIndex = 0
         this.setFrames(0)
     }
 }
 
-class BoldText extends createText{
+class BoldText extends createText {
     constructor(text, x = 0, y = 0, transparency = false) {
         super();
         this.charObjects = []
@@ -117,10 +116,10 @@ class BoldText extends createText{
         this.frames = []
         this.transparency = transparency
         String(text).toUpperCase().split('').forEach(char => {
-            if(caracteres.upperCase.includes(char)){
+            if (caracteres.upperCase.includes(char)) {
                 this.charObjects.push(upperCase.bold[char])
             }
-            if(char === " "){
+            if (char === " ") {
                 this.charObjects.push(space)
             }
         })
