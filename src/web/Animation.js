@@ -4,6 +4,10 @@ const canvas = document.querySelector('canvas')
 const ctx = canvas.getContext('2d')
 
 class animationBase {
+    frames = []
+    atualFrameIndex = 0
+    atualFrame = {}
+
     constructor({ frames, ...args }) {
         this.frames = frames
         this.atualFrameIndex = 0
@@ -23,7 +27,7 @@ class animationBase {
     }
 }
 
-class menuButtonsAnimationBasic {
+class menuButtonsAnimationBase {
     isFocused = false
     constructor({ types, ...atributes }) {
         Object.entries(atributes).forEach(([key, value]) => {
@@ -66,6 +70,27 @@ class menuButtonsAnimationBasic {
     }
 }
 
+class multframesAnimations extends animationBase{
+    types = {}
+
+    constructor({ frames, types, ...args }) {
+        super({ frames })
+        this.types = types
+
+        Object.entries(args).forEach( ([key, value]) => this[key] = value )
+    }
+
+    setFramesType(type){
+        if(this.types[type]){
+            this.frames = this.types[type]
+            this.atualFrameIndex = 0
+            this.atualFrame = this.frames[0]
+        }else{
+            console.error(`"${type}" not exists in animation types`)
+        }
+    }
+}
+
 async function transition(renderCallBack, middleCallBack) {
     const drawGradient = h => {
         const gradient = ctx.createLinearGradient(0, h, 0, canvas.height * 1.5 + h)
@@ -95,4 +120,4 @@ async function transition(renderCallBack, middleCallBack) {
     }
 }
 
-export { animationBase, menuButtonsAnimationBasic, transition }
+export { animationBase, menuButtonsAnimationBase, multframesAnimations, transition }
