@@ -1,4 +1,4 @@
-const path = BOYFRIEND.png
+const path = "BOYFRIEND.png"
 
 const frames = {
     deadLoop: [
@@ -541,4 +541,6 @@ const miss = {
     ]
 }
 
-export { notes, miss, frames, path }
+const types = { notes, miss, frames }
+
+export { types , path }
