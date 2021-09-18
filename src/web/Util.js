@@ -1,4 +1,6 @@
 const path = require('path')
+const canvas = document.querySelector('canvas')
+const ctx = canvas.getContext('2d')
 
 const loadImage = async (...pathSegments) => {
     const image = new Image()
@@ -40,4 +42,8 @@ const range = (min, max, pass = 1) => {
     return array
 }
 
-export { loadImage, loadAudio, playAudio, delay, range }
+const clearCanvas = () => {
+    ctx.clearRect(0 , 0, canvas.width, canvas.height)
+}
+
+export { loadImage, loadAudio, playAudio, delay, range, clearCanvas }
