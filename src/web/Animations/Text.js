@@ -11,13 +11,13 @@ const caracteres = {
     ]
 }
 
-const space = [{
+const makeSpace = () => Array.from({ length: 4 }, () => ({
     x: 0,
     y: 0,
     height: 0,
     width: 40,
     isSpace: true
-}]
+}))
 
 const canvas = document.querySelector('canvas')
 const ctx = canvas.getContext('2d')
@@ -44,7 +44,7 @@ class createText {
                 this.charObjects.push(upperCase.normal[char])
             }
             if (char === " ") {
-                this.charObjects.push(space)
+                this.charObjects.push(makeSpace())
             }
         })
         console.log(this.charObjects);
@@ -107,6 +107,7 @@ class createText {
 }
 
 class BoldText extends createText {
+    text = ''
     constructor(text, x = 0, y = 0, transparency = false) {
         super();
         this.charObjects = []
@@ -115,12 +116,13 @@ class BoldText extends createText {
         this.y = y
         this.frames = []
         this.transparency = transparency
+        this.text = text
         String(text).toUpperCase().split('').forEach(char => {
             if (caracteres.upperCase.includes(char)) {
                 this.charObjects.push(upperCase.bold[char])
             }
             if (char === " ") {
-                this.charObjects.push(space)
+                this.charObjects.push(makeSpace())
             }
         })
         this.setFrames(0)
