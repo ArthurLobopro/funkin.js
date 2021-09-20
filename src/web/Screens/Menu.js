@@ -1,6 +1,6 @@
 const { shell } = require('electron')
 import { range, delay, playAudio } from '../Util.js'
-import { menuButtonsAnimationBasic, transition } from '../Animation.js'
+import { menuButtonsAnimationBase, transition } from '../Animation.js'
 import * as mainButtons from "../../../assets/animations/main_menu_buttons.js"
 import { Sounds } from "../Audio.js"
 import { Start } from './Start.js'
@@ -17,7 +17,7 @@ const images = {
 
 const screenComponents = {
     buttons: {
-        storyMode: new menuButtonsAnimationBasic({
+        storyMode: new menuButtonsAnimationBase({
             types: mainButtons.storymode,
             isFocused: true,
             draw() {
@@ -38,7 +38,7 @@ const screenComponents = {
 
             }
         }),
-        freeplay: new menuButtonsAnimationBasic({
+        freeplay: new menuButtonsAnimationBase({
             types: mainButtons.freeplay,
             draw() {
                 const { x: sx, y: sy, width, height, frameX = 0, frameY = 0, frameWidth = 0, frameHeight = 0 } = this.atualFrame
@@ -60,7 +60,7 @@ const screenComponents = {
             }
         }),
 
-        donate: new menuButtonsAnimationBasic({
+        donate: new menuButtonsAnimationBase({
             types: mainButtons.donate,
             draw() {
                 const { x: sx, y: sy, width, height, frameX = 0, frameY = 0, frameWidth = 0, frameHeight = 0 } = this.atualFrame
