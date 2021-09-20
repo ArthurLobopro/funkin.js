@@ -3,8 +3,8 @@ import { Music } from "../Audio.js";
 import { Menu } from "./Menu.js"
 import { ButtonsList } from "../Animations/ButtonsList.js";
 import { transition } from "../Animation.js";
-import { Phases } from "../Phases.js";
 import { Images } from "../Images.js";
+import Tutorial from "../Phases/Tutorial.js";
 
 const canvas = document.querySelector('canvas')
 const ctx = canvas.getContext('2d')
@@ -22,7 +22,7 @@ const screenComponents = {
     buttons: new ButtonsList([
         new BoldButton({ 
             text: "Tutorial", x: 50, focused: true, music: Music.Tutorial_Inst,
-             click(){ setScreen(Phases.Tutorial) } 
+             click(){ setScreen(Tutorial) } 
         }),
         new BoldButton({ text: "Bopeebo", x: 50, music: Music.Bopeebo_Inst, click() { } }),
         new BoldButton({ text: "Fresh", x: 50, music: Music.Fresh_Inst, click() { } }),

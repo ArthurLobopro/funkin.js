@@ -82,4 +82,4 @@ const press = {
     ]
 }
 
-export { path, press, holdEnd, holdPiece, arrows, arrows, grayArrows, confirm}
+export { path, press, holdEnd, holdPiece, arrows, grayArrows, confirm}
