@@ -6,6 +6,7 @@ import { types as BoyfriendTypes } from "../../../assets/animations/BOYFRIEND.js
 import { Images, Sprites } from "../Images.js";
 import { multframesAnimations } from "../Animation.js";
 import { Pause } from "../Screens/Pause.js";
+import { ArrowsPainel } from "../Animations/Arrows.js";
 
 const images = {
     stageback: Images.stageback,
@@ -71,6 +72,8 @@ const Tutorial = {
     isPaused: false,
     pauseScreen: null,
 
+    ArrowsFrames: new ArrowsPainel(),
+
     render() {
         const { width, height } = images.stagefront
         ctx.drawImage(
@@ -93,6 +96,8 @@ const Tutorial = {
 
         GirlFriend.draw()
         Boyfriend.draw()
+
+        this.ArrowsFrames.render()
 
     },
 
