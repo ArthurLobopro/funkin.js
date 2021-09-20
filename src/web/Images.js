@@ -4,10 +4,11 @@ import { spritesFolder, imagesFolder } from "../Paths.js";
 import { path as logoBumpinPath } from "../../assets/animations/logoBumpin.js"
 import { path as gfDanceTitlePath } from "../../assets/animations/gfDanceTitle.js"
 import { path as titleEnterPath } from "../../assets/animations/titleEnter.js"
-import { path as mainMenuButtonsPath} from "../../assets/animations/main_menu_buttons.js"
+import { path as mainMenuButtonsPath } from "../../assets/animations/main_menu_buttons.js"
 import { path as alphabetPath } from "../../assets/animations/alphabet.js"
-import { path as GFAssetsPath} from "../../assets/animations/GF-assets.js"
-import { path as BOYFRIENDPath} from "../../assets/animations/BOYFRIEND.js"
+import { path as GFAssetsPath } from "../../assets/animations/GF-assets.js"
+import { path as BOYFRIENDPath } from "../../assets/animations/BOYFRIEND.js"
+import { path as NOTESPath } from "../../assets/animations/NOTES.js"
 
 const Images = {
     backgroudYellow: await loadImage(imagesFolder, "menuBG.png"),
@@ -25,6 +26,7 @@ const Sprites = {
     alphabet: await loadImage(spritesFolder, alphabetPath),
     GFAssets: await loadImage(spritesFolder, GFAssetsPath),
     BOYFRIEND: await loadImage(spritesFolder, BOYFRIENDPath),
+    NOTES: await loadImage(spritesFolder, NOTESPath)
 }
 
 export { Sprites, Images }
