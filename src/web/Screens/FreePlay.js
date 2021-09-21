@@ -1,7 +1,7 @@
-import { BoldButton } from "../Animations/Buttons.js";
+import { BoldButton } from "../Components/Buttons.js";
 import { Music } from "../Audio.js";
 import { Menu } from "./Menu.js"
-import { ButtonsList } from "../Animations/ButtonsList.js";
+import { ButtonsList } from "../Components/ButtonsList.js";
 import { transition } from "../Animation.js";
 import { Images } from "../Images.js";
 import Tutorial from "../Phases/Tutorial.js";

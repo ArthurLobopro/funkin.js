@@ -1,5 +1,5 @@
-import { ButtonsList } from "../Animations/ButtonsList.js";
-import { BoldButton } from "../Animations/Buttons.js";
+import { ButtonsList } from "../Components/ButtonsList.js";
+import { BoldButton } from "../Components/Buttons.js";
 import { clearCanvas } from "../Util.js";
 
 const canvas = document.querySelector('canvas')

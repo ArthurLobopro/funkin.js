@@ -6,7 +6,7 @@ import { types as BoyfriendTypes } from "../../../assets/animations/BOYFRIEND.js
 import { Images, Sprites } from "../Images.js";
 import { multframesAnimations } from "../Animation.js";
 import { Pause } from "../Screens/Pause.js";
-import { ArrowsPainel } from "../Animations/Arrows.js";
+import { ArrowsPainel } from "../Components/Arrows.js";
 import { Music } from "../Audio.js";
 import { game } from "../Game.js";
 

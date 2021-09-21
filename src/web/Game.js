@@ -1,4 +1,5 @@
 import Screens from "./Screens.js"
+import Tutorial from "./Phases/Tutorial.js"
 
 const game = {
     haveMusicPlaying: false,
