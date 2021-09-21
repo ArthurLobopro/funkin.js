@@ -57,27 +57,27 @@ const confirm = {
 
 const press = {
     down: [
-        { x: 149, y: 392, width: 142, height: 140, frameX: -4, frameY: -2, frameWidth: 149, frameHeight: 146 },
+        // { x: 149, y: 392, width: 142, height: 140, frameX: -4, frameY: -2, frameWidth: 149, frameHeight: 146 },
         { x: 149, y: 392, width: 142, height: 140, frameX: -4, frameY: -2, frameWidth: 149, frameHeight: 146 },
         { x: 0, y: 388, width: 149, height: 146 },
-        { x: 0, y: 388, width: 149, height: 146 },
+        // { x: 0, y: 388, width: 149, height: 146 },
     ],
     left: [
+        // { x: 291, y: 392, width: 140, height: 142, frameX: -3, frameY: -3, frameWidth: 146, frameHeight: 149 },
         { x: 291, y: 392, width: 140, height: 142, frameX: -3, frameY: -3, frameWidth: 146, frameHeight: 149 },
-        { x: 291, y: 392, width: 140, height: 142, frameX: -3, frameY: -3, frameWidth: 146, frameHeight: 149 },
-        { x: 463, y: 389, width: 146, height: 149 },
+        // { x: 463, y: 389, width: 146, height: 149 },
         { x: 463, y: 389, width: 146, height: 149 }
     ],
     right: [
+        // { x: 932, y: 442, width: 138, height: 141, frameX: -3, frameY: -7, frameWidth: 148, frameHeight: 151 },
         { x: 932, y: 442, width: 138, height: 141, frameX: -3, frameY: -7, frameWidth: 148, frameHeight: 151 },
-        { x: 932, y: 442, width: 138, height: 141, frameX: -3, frameY: -7, frameWidth: 148, frameHeight: 151 },
-        { x: 784, y: 385, width: 148, height: 151 },
+        // { x: 784, y: 385, width: 148, height: 151 },
         { x: 784, y: 385, width: 148, height: 151 }
     ],
     up: [
+        // { x: 609, y: 389, width: 144, height: 141, frameX: -5, frameY: -4, frameWidth: 153, frameHeight: 150 },
         { x: 609, y: 389, width: 144, height: 141, frameX: -5, frameY: -4, frameWidth: 153, frameHeight: 150 },
-        { x: 609, y: 389, width: 144, height: 141, frameX: -5, frameY: -4, frameWidth: 153, frameHeight: 150 },
-        { x: 1850, y: 308, width: 153, height: 150 },
+        // { x: 1850, y: 308, width: 153, height: 150 },
         { x: 1850, y: 308, width: 153, height: 150 }
     ]
 }
