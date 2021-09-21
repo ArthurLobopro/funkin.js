@@ -110,7 +110,7 @@ const Tutorial = {
         clearInterval(this.updateInterval)
         clearInterval(this.renderInterval)
         this.isPaused = true
-        this.pauseScreen = new Pause({ renderCb:  Tutorial.render  })
+        this.pauseScreen = new Pause({ renderImage: canvas.toDataURL('image/png') })
         console.log("pause");
     },
 
@@ -138,7 +138,8 @@ const buttonsFunctions = {
     "ArrowDown": functions.down,
     "w": functions.up,
     "ArrowUp": functions.up,
-    "Escape": functions.pause
+    "Escape": functions.pause,
+    "Enter": functions.pause
 }
 
 

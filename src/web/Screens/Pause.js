@@ -6,7 +6,7 @@ const canvas = document.querySelector('canvas')
 const ctx = canvas.getContext('2d')
 
 export class Pause {
-    renderCb = null
+    renderImage = new Image()
     playCb = null
     restartCb = null
     exitCb = null
@@ -24,8 +24,8 @@ export class Pause {
         "Escape": this.exit
     }
 
-    constructor({ renderCb, playCb, restartCb, exitCb }){
-        this.renderCb = renderCb
+    constructor({ renderImage, playCb, restartCb, exitCb }){
+        this.renderImage.src = renderImage
         this.playCb = playCb
         this.restartCb = restartCb
         this.exitCb = exitCb  
@@ -62,7 +62,9 @@ export class Pause {
 
     render(){
         clearCanvas()
-        this.renderCb?.()
+        ctx.drawImage(
+            this.renderImage, 0 ,0
+        )
         ctx.save()
         ctx.globalAlpha = 0.3
         ctx.fillStyle = "#000"
