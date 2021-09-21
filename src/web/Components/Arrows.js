@@ -11,7 +11,7 @@ export class GrayArrows {
     y = 75
     spaceament = 10
     borderDistance = 55
-    reduceArrow = 1.5
+    scaleArrow = 0.7
 
     arrows = {
         left: [grayArrows.left],
@@ -46,7 +46,7 @@ export class GrayArrows {
 
     updateWidth() {
         this.width = (
-            Object.entries(this.arrows).reduce((count, [key, arrow]) => count + arrow[this.arrowsIndex[key]].width / this.reduceArrow, 0) +
+            Object.entries(this.arrows).reduce((count, [key, arrow]) => count + arrow[this.arrowsIndex[key]].width * this.scaleArrow , 0) +
             this.spaceament * 4
         )
     }
@@ -69,12 +69,11 @@ export class GrayArrows {
     
                 return (
                     count 
-                    + arrow[this.arrowsIndex[key]].width / this.reduceArrow + (index == 0 ? 0 : this.spaceament) 
+                    + arrow[this.arrowsIndex[key]].width * this.scaleArrow + (index == 0 ? 0 : this.spaceament) 
                     // -(arrow[this.arrowsIndex[key]].frameX || 0)
                 )
             }, this.x)
         })
-        
         
     }
 
@@ -103,10 +102,9 @@ export class GrayArrows {
                 frameHeight = 0, frameWidth = 0, frameX = 0, frameY = 0
             } = arrow[this.arrowsIndex[key]]
 
-            const dw = ((frameWidth || width) - frameX / this.reduceArrow) / this.reduceArrow
-            const dh = ((frameHeight || height) - frameY / this.reduceArrow) / this.reduceArrow
+            const dw = ((frameWidth || width) - frameX) * this.scaleArrow
+            const dh = ((frameHeight || height) - frameY)* this.scaleArrow
             
-
             ctx.drawImage(
                 Sprites.NOTES,
                 sx, sy,
