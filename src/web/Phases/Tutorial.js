@@ -7,6 +7,8 @@ import { Images, Sprites } from "../Images.js";
 import { multframesAnimations } from "../Animation.js";
 import { Pause } from "../Screens/Pause.js";
 import { ArrowsPainel } from "../Animations/Arrows.js";
+import { Music } from "../Audio.js";
+import { game } from "../Game.js";
 
 const images = {
     stageback: Images.stageback,
@@ -104,6 +106,7 @@ const Tutorial = {
     update() {
         GirlFriend.updateFrame()
         Boyfriend.updateFrame()
+        this.ArrowsFrames.update()
     },
 
     pause() {
@@ -118,6 +121,7 @@ const Tutorial = {
         this.renderInterval = setInterval(() => this.render(), 1000 / 30)
         this.updateInterval = setInterval(() => this.update(), 1000 / 24)
         window.onkeydown = this.onkeydown
+        // game.setBackgroudMusic(Music.Tutorial_Inst)
     },
 
     onkeydown(event) {
@@ -127,19 +131,25 @@ const Tutorial = {
 
 }
 
-const functions = {
-    down: () => { },
-    up: () => { },
+const keyFunctions = {
+    down: () => { Tutorial.ArrowsFrames.onClick("right", "down") },
+    up: () => { Tutorial.ArrowsFrames.onClick("right", "up") },
+    left: () => { Tutorial.ArrowsFrames.onClick("right", "left") },
+    right: () => { Tutorial.ArrowsFrames.onClick("right", "right") },
     pause: () => Tutorial.pause()
 }
 
 const buttonsFunctions = {
-    "s": functions.down,
-    "ArrowDown": functions.down,
-    "w": functions.up,
-    "ArrowUp": functions.up,
-    "Escape": functions.pause,
-    "Enter": functions.pause
+    "s": keyFunctions.down,
+    "ArrowDown": keyFunctions.down,
+    "a": keyFunctions.left,
+    "ArrowLeft": keyFunctions.left,
+    "d": keyFunctions.right,
+    "ArrowRight": keyFunctions.right,
+    "w": keyFunctions.up,
+    "ArrowUp": keyFunctions.up,
+    "Escape": keyFunctions.pause,
+    "Enter": keyFunctions.pause
 }
 
 
