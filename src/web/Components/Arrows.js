@@ -1,5 +1,5 @@
 import { Sprites } from "../Images.js"
-import { grayArrows, press as pressArrows } from "../../../assets/animations/NOTES.js"
+import { grayArrows, press as pressArrows, confirm as confirmArrows } from "../../../assets/animations/NOTES.js"
 
 const canvas = document.querySelector('canvas')
 const ctx = canvas.getContext('2d')
@@ -8,7 +8,7 @@ export class GrayArrows {
     width = 0
     height = 0
     x = 0
-    y = 75
+    y = 40
     spaceament = 10
     borderDistance = 55
     scaleArrow = 0.7
@@ -46,7 +46,7 @@ export class GrayArrows {
 
     updateWidth() {
         this.width = (
-            Object.entries(this.arrows).reduce((count, [key, arrow]) => count + arrow[this.arrowsIndex[key]].width * this.scaleArrow , 0) +
+            Object.entries(this.arrows).reduce((count, [key, arrow]) => count + arrow[this.arrowsIndex[key]].width * this.scaleArrow, 0) +
             this.spaceament * 4
         )
     }
@@ -58,7 +58,7 @@ export class GrayArrows {
         )
     }
 
-    updateX(){
+    updateX() {
         const arrows = Object.entries(this.arrows)
 
         arrows.forEach(([key, arrow], index) => {
@@ -66,32 +66,35 @@ export class GrayArrows {
                 if (currentIndex >= index) {
                     return count
                 }
-    
+
                 return (
-                    count 
-                    + arrow[this.arrowsIndex[key]].width * this.scaleArrow + (index == 0 ? 0 : this.spaceament) 
+                    count
+                    + arrow[this.arrowsIndex[key]].width * this.scaleArrow + (index == 0 ? 0 : this.spaceament)
                     // -(arrow[this.arrowsIndex[key]].frameX || 0)
                 )
             }, this.x)
         })
-        
+
     }
 
     updateFrames() {
         for (const side in this.arrowsIndex) {
             const index = this.arrowsIndex[side]
-            if(index + 1 >= this.arrows[side].length){
+            if (index + 1 >= this.arrows[side].length) {
                 this.arrowsIndex[side] = 0
                 this.arrows[side] = [grayArrows[side]]
-            }else{
-                this.arrowsIndex[side] =index + 1
+            } else {
+                this.arrowsIndex[side] = index + 1
             }
         }
     }
 
     click(direction) {
         this.arrows[direction] = pressArrows[direction]
-        console.log(this.arrows);
+    }
+
+    noteClick(direction) {
+        this.arrows[direction] = confirmArrows[direction]
     }
 
     render() {
@@ -102,14 +105,24 @@ export class GrayArrows {
                 frameHeight = 0, frameWidth = 0, frameX = 0, frameY = 0
             } = arrow[this.arrowsIndex[key]]
 
-            const dw = ((frameWidth || width) - frameX) * this.scaleArrow
-            const dh = ((frameHeight || height) - frameY)* this.scaleArrow
-            
+            const scale =
+                confirmArrows[key].some(confirmArrow => confirmArrow == arrow[this.arrowsIndex[key]]) ?
+                    this.confirmScaleArrow : this.scaleArrow
+
+            const dw = ((frameWidth || width) + frameX * scale) * scale
+            const dh = ((frameHeight || height) + frameY * scale) * scale
+
+            // const dx = this.arrowsX[key] + frameX * scale
+            // const dy = this.y + frameY * scale
+
+            const dx = this.arrowsX[key] + frameX / 2
+            const dy = this.y + frameY * scale
+
             ctx.drawImage(
                 Sprites.NOTES,
                 sx, sy,
                 width, height,
-                this.arrowsX[key], this.y,
+                dx, dy,
                 dw, dh
             )
         })
@@ -128,13 +141,14 @@ export class ArrowsPainel {
         this.ArrowsFrames.right.render()
     }
 
-    update(){
+    update() {
         this.ArrowsFrames.left.updateFrames()
         this.ArrowsFrames.right.updateFrames()
     }
 
     onClick(side, direction) {
         this.ArrowsFrames[side].click(direction)
+        // this.ArrowsFrames[side].noteClick(direction)
     }
 
 }
