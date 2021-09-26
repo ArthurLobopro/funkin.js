@@ -1,6 +1,5 @@
 import { read } from "./read-json-song.js";
 import { appPath, imagesFolder } from "../../Paths.js"
-import { loadImage } from "../Util.js";
 import { frames as GirlFriendFrames } from "../../../assets/animations/GF-assets.js"
 import { types as BoyfriendTypes } from "../../../assets/animations/BOYFRIEND.js"
 import { Images, Sprites } from "../Images.js";
@@ -9,6 +8,8 @@ import { Pause } from "../Screens/Pause.js";
 import { ArrowsPainel } from "../Components/Arrows.js";
 import { Music } from "../Audio.js";
 import { game } from "../Game.js";
+import { Boyfriend } from "../Components/Boyfriend.js";
+import { Girlfriend } from "../Components/Girlfriend.js";
 
 const images = {
     stageback: Images.stageback,
@@ -21,52 +22,9 @@ const images = {
 const canvas = document.querySelector('canvas')
 const ctx = canvas.getContext('2d')
 
-const GirlFriend = new multframesAnimations({
-    frames: GirlFriendFrames.dancingBeat,
-    types: GirlFriendFrames,
-    x: 0,
-    y: 0,
-    width: 0,
-    height: 0,
-    draw() {
-        const { x: sx, y: sy, width, height, frameHeight = 0, frameWidth = 0, frameX = 0, frameY = 0 } = this.atualFrame
-        const dh = (frameHeight || height) / 1.5
-        const dw = (frameWidth || width) / 1.5
-        const x = canvas.width / 2 - dw / 2
-        const y = canvas.height / 2 - dh / 2
-        this.y = y
-        this.x = x
-        this.width = dw
-        this.height = dh
-        ctx.drawImage(
-            images.GFAssets, //Imagem
-            sx, sy, //Posição no sprite
-            width, height, //Largura e altura no sprite
-            x, y, //Posição x e y
-            dw, dh  //largura e altura na tela
-        )
-    }
-})
+const GirlFriend = new Girlfriend()
 
-const Boyfriend = new multframesAnimations({
-    frames: BoyfriendTypes.frames["idle-dance"],
-    types: BoyfriendTypes,
-    draw() {
-        const { x: sx, y: sy, width, height, frameHeight = 0, frameWidth = 0, frameX = 0, frameY = 0 } = this.atualFrame
-        const dh = (frameHeight || height) / 1.5
-        const dw = (frameWidth || width) / 1.5
-        const x = GirlFriend.x + GirlFriend.width / 2
-        const y = GirlFriend.y + GirlFriend.height / 2
-
-        ctx.drawImage(
-            images.Boyfriend, //Imagem
-            sx, sy, //Posição no sprite
-            width, height, //Largura e altura no sprite
-            x, y, //Posição x e y
-            dw, dh  //largura e altura na tela
-        )
-    }
-})
+const BoyFriend = new Boyfriend({ x: GirlFriend.x + GirlFriend.width / 2, y: GirlFriend.y + GirlFriend.height / 2 })
 
 const Tutorial = {
     updateInterval: null,
@@ -96,16 +54,16 @@ const Tutorial = {
             canvas.width, canvas.height
         )
 
-        GirlFriend.draw()
-        Boyfriend.draw()
+        GirlFriend.render()
+        BoyFriend.render()
 
         this.ArrowsFrames.render()
 
     },
 
     update() {
-        GirlFriend.updateFrame()
-        Boyfriend.updateFrame()
+        GirlFriend.update()
+        BoyFriend.update(GirlFriend)
         this.ArrowsFrames.update()
     },
 
