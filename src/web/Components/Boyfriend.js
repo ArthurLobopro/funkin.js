@@ -6,10 +6,10 @@ const canvas = document.querySelector('canvas')
 const ctx = canvas.getContext('2d')
 
 export class Boyfriend extends multframesAnimations {
-    constructor({ x, y }) {
+    constructor() {
         super({ types, frames: types.frames["idle-dance"] })
-        this.x = x
-        this.y = y
+        this.x = 0
+        this.y = 0
     }
 
     update(GirlFriend) {
