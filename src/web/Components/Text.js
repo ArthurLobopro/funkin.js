@@ -24,8 +24,7 @@ const ctx = canvas.getContext('2d')
 
 const { alphabet } = Sprites
 
-class createText {
-
+class Text {
     constructor(text, x = 0, y = 0) {
         if (text === undefined) return
         this.charObjects = []
@@ -106,7 +105,7 @@ class createText {
     }
 }
 
-class BoldText extends createText {
+class BoldText extends Text {
     text = ''
     constructor(text, x = 0, y = 0, transparency = false) {
         super();
@@ -134,4 +133,4 @@ class BoldText extends createText {
         ctx.restore()
     }
 }
-export { createText, BoldText }
+export { Text, BoldText }
