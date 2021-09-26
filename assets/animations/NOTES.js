@@ -31,15 +31,15 @@ const holdPiece = {
 const confirm = {
     down: [
         { x: 0, y: 0, width: 238, height: 235 },
-        { x: 238, y: 0, width: 238, height: 235 },
-        { x: 1176, y: 230, width: 219, height: 208, frameX: -6, frameY: -12, frameWidth: 238, frameHeight: 235 },
+        // { x: 238, y: 0, width: 238, height: 235 },
+        // { x: 1176, y: 230, width: 219, height: 208, frameX: -6, frameY: -12, frameWidth: 238, frameHeight: 235 },
         { x: 1176, y: 230, width: 219, height: 208, frameX: -6, frameY: -12, frameWidth: 238, frameHeight: 235 },
     ],
     left: [
         { x: 948, y: 0, width: 228, height: 231 },
         { x: 1402, y: 228, width: 218, height: 221, frameX: -5, frameY: -5, frameWidth: 228, frameHeight: 231 },
         { x: 1402, y: 0, width: 225, height: 221, frameX: -2, frameY: -1, frameWidth: 228, frameHeight: 231 },
-        { x: 1402, y: 0, width: 225, height: 221, frameX: -2, frameY: -1, frameWidth: 228, frameHeight: 231 },
+        // { x: 1402, y: 0, width: 225, height: 221, frameX: -2, frameY: -1, frameWidth: 228, frameHeight: 231 },
     ],
     right: [
         { x: 1627, y: 0, width: 223, height: 226, frameX: -1, frameY: -3, frameWidth: 226, frameHeight: 230 },
