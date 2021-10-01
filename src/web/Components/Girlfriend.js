@@ -1,5 +1,5 @@
 import { frames as frameTypes } from "../../../assets/animations/GF-assets.js"
-import { multframesAnimations } from "../Animation.js"
+import { multframesAnimations } from "./Animation.js"
 import { Sprites } from "../Images.js"
 
 const canvas = document.querySelector('canvas')

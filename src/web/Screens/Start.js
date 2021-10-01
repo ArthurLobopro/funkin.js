@@ -1,5 +1,5 @@
 import { loadImage } from '../Util.js'
-import { animationBase, transition } from '../Animation.js'
+import { animationBase, transition } from '../Components/Animation.js'
 import { frames as logoFrames } from "../../../assets/animations/logoBumpin.js"
 import { frames as GfDanceFrames } from "../../../assets/animations/gfDanceTitle.js"
 import { types as titleEnterFramesTypes } from "../../../assets/animations/titleEnter.js"

@@ -1,5 +1,5 @@
 import { types } from "../../../assets/animations/BOYFRIEND.js"
-import { multframesAnimations } from "../Animation.js"
+import { multframesAnimations } from "./Animation.js"
 import { Sprites } from "../Images.js"
 
 const canvas = document.querySelector('canvas')
