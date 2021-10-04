@@ -8,24 +8,23 @@ const ctx = canvas.getContext('2d')
 class animationBase {
     frames = []
     atualFrameIndex = 0
-    atualFrame = {}
 
     constructor({ frames, ...args }) {
         this.frames = frames
         this.atualFrameIndex = 0
-        this.atualFrame = this.frames[0]
-
         Object.entries(args).forEach( ([key, value]) => this[key] = value )
     }
 
     reset() {
         this.atualFrameIndex = 0
-        this.atualFrame = this.frames[0]
     }
 
     updateFrame() {
         this.atualFrameIndex = this.atualFrameIndex + 1 === this.frames.length ? 0 : this.atualFrameIndex + 1
-        this.atualFrame = this.frames[this.atualFrameIndex]
+    }
+
+    get atualFrame(){
+        return this.frames[this.atualFrameIndex]
     }
 }
 
@@ -43,7 +42,6 @@ class multframesAnimations extends animationBase{
         if(this.types[type]){
             this.frames = this.types[type]
             this.atualFrameIndex = 0
-            this.atualFrame = this.frames[0]
         }else{
             console.error(`"${type}" not exists in animation types`)
         }
