@@ -84,9 +84,7 @@ const Menu = {
     reset() {
         clearInterval(this.renderInterval)
         clearInterval(this.updateInterval)
-        Object.entries(screenComponents.buttons).forEach(([key, component]) => {
-            component.reset()
-        })
+        this.buttons.reset()
     },
     onkeydown(event) {
         const { key } = event
