@@ -41,7 +41,6 @@ export class GrayArrows {
 
         this.x = side == "left" ? this.borderDistance : canvas.width - this.width - this.borderDistance
         this.updateX()
-        console.log(this.arrowsX);
     }
 
     updateWidth() {

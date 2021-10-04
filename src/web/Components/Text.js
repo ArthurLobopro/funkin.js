@@ -46,7 +46,6 @@ class Text {
                 this.charObjects.push(makeSpace())
             }
         })
-        console.log(this.charObjects);
         this.setFrames(0)
         this.render()
     }
