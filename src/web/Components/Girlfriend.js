@@ -1,11 +1,11 @@
 import { frames as frameTypes } from "../../../assets/animations/GF-assets.js"
-import { multframesAnimations } from "./Animation.js"
+import { multTypesAnimation } from "./Animation.js"
 import { Sprites } from "../Images.js"
 
 const canvas = document.querySelector('canvas')
 const ctx = canvas.getContext('2d')
 
-export class Girlfriend extends multframesAnimations {
+export class Girlfriend extends multTypesAnimation {
     constructor() {
         super({ frames: frameTypes.dancingBeat, types: frameTypes })
         this.updateCoords()

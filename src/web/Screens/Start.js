@@ -1,5 +1,5 @@
 import { loadImage } from '../Util.js'
-import { animationBase, transition } from '../Components/Animation.js'
+import { animationBasic, transition } from '../Components/Animation.js'
 import { frames as logoFrames } from "../../../assets/animations/logoBumpin.js"
 import { frames as GfDanceFrames } from "../../../assets/animations/gfDanceTitle.js"
 import { types as titleEnterFramesTypes } from "../../../assets/animations/titleEnter.js"
@@ -18,7 +18,7 @@ const images = {
 }
 
 const screenComponents = {
-    girlFriend: new animationBase({
+    girlFriend: new animationBasic({
         frames: GfDanceFrames,
         draw() {
             const { x: sx, y: sy, width, height, frameHeight = 0, frameWidth = 0, frameX = 0, frameY = 0 } = this.atualFrame
@@ -35,7 +35,7 @@ const screenComponents = {
             )
         }
     }),
-    logo: new animationBase({
+    logo: new animationBasic({
         frames: logoFrames,
         x: -130,
         y: -90,
@@ -56,7 +56,7 @@ const screenComponents = {
         }
     }),
 
-    titleEnter: new animationBase({
+    titleEnter: new animationBasic({
         frames: titleEnterFramesTypes.pressEnter,
         yd: 0,
         draw() {

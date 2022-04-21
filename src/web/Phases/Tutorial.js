@@ -3,7 +3,7 @@ import { appPath, imagesFolder } from "../../Paths.js"
 import { frames as GirlFriendFrames } from "../../../assets/animations/GF-assets.js"
 import { types as BoyfriendTypes } from "../../../assets/animations/BOYFRIEND.js"
 import { Images, Sprites } from "../Images.js";
-import { multframesAnimations } from '../Components/Animation.js';
+import { multTypesAnimation } from '../Components/Animation.js';
 import { Pause } from "../Screens/Pause.js";
 import { ArrowsPainel } from "../Components/Arrows.js";
 import { Music } from "../Audio.js";

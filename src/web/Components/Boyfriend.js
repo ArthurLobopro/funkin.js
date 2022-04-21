@@ -1,11 +1,11 @@
 import { types } from "../../../assets/animations/BOYFRIEND.js"
-import { multframesAnimations } from "./Animation.js"
+import { multTypesAnimation } from "./Animation.js"
 import { Sprites } from "../Images.js"
 
 const canvas = document.querySelector('canvas')
 const ctx = canvas.getContext('2d')
 
-export class Boyfriend extends multframesAnimations {
+export class Boyfriend extends multTypesAnimation {
     constructor() {
         super({ types, frames: types.frames["idle-dance"] })
         this.x = 0

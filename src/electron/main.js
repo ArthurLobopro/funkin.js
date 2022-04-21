@@ -8,7 +8,7 @@ const appPath = app.getAppPath()
 function createWindow() {
     const win = new BrowserWindow({
         width: 1280,
-        height: 720,
+        height: 750,
         autoHideMenuBar: true,
         // resizable: false,
         // frame: false,

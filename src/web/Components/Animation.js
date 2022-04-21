@@ -5,7 +5,7 @@ import { delay } from "../Util.js"
 const canvas = document.querySelector('canvas')
 const ctx = canvas.getContext('2d')
 
-class animationBase {
+class animationBasic {
     frames = []
     atualFrameIndex = 0
 
@@ -28,7 +28,7 @@ class animationBase {
     }
 }
 
-class multframesAnimations extends animationBase{
+class multTypesAnimation extends animationBasic{
     types = {}
 
     constructor({ frames, types, ...args }) {
@@ -77,4 +77,4 @@ async function transition(renderCallBack, middleCallBack) {
     }
 }
 
-export { animationBase, multframesAnimations, transition }
+export { animationBasic, multTypesAnimation, transition }
